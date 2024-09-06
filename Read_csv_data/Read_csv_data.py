@@ -8,5 +8,4 @@ class Read_csv:
             self.final_path = Raw_data_path
     def read_csv_file(self):
         Zomato_raw_dataframe = pd.read_csv(self.final_path)
-        "mGG".lower()
         return  Zomato_raw_dataframe
