@@ -16,6 +16,7 @@ from Clean_Existing_folder.Clean_Folder import Check_Clean_Folder
 class Calling_all_function:
     def __init__(self):
         self.current_working_directory = os.getcwd()
+        self.Log_folder_path = 'Log_file'
         self.EDA_graph_data_path = os.path.join(self.current_working_directory,'EDA_Graph_plot')
         self.Zomato_raw_data = os.getenv('Zomato_raw_data')
         self.pickel_model_path =os.path.join(self.current_working_directory,'Pickle_model_to_predict')
@@ -34,7 +35,7 @@ class Calling_all_function:
                 X, Y, test_size=.1, random_state=353)
 
             Best_model = Best_model_finder(self.X_train, self.X_test, self.Y_train, self.y_test).comapre_all_model()
-            print(Best_model)
+       # /     print(Best_model)
             # Here is the Best model name
             model_detail_name = Best_model[1]
             ##serializing the ML model for further prediction
@@ -49,7 +50,7 @@ class Calling_all_function:
             sns.heatmap(corr,annot=True,center=0)
             heatmap_img = 'correlation_heatmap.png'
             plt.savefig(os.path.join(self.EDA_graph_data_path,heatmap_img))
-        #     above code will give PNG image of 
+        #     above code will give PNG image of
         except Exception as e:
             raise e
 
@@ -68,6 +69,8 @@ class Calling_all_function:
         try:
             instance_for_cleaning_folder = Check_Clean_Folder()
             instance_for_cleaning_folder.check_existing_folder(self.current_working_directory,self.EDA_graph_data_path)
+            instance_for_cleaning_folder.check_existing_folder(self.current_working_directory,self.Log_folder_path)
+            instance_for_cleaning_folder.check_existing_folder(self.current_working_directory,os.getenv('Pickle_model_path'))
         except Exception as e:
             raise e
 if __name__ =="__main__":
